@@ -71,7 +71,8 @@ func (t *ConfigSharingTask) Run(ctx context.Context) error {
 
 	thanosURL, err := t.client.GetRouteURL(ctx, thanosRoute)
 	if err != nil {
-		return errors.Wrap(err, "failed to retrieve Thanos Querier host")
+		// return errors.Wrap(err, "failed to retrieve Thanos Querier host")
+		thanosURL = nil
 	}
 
 	var (
