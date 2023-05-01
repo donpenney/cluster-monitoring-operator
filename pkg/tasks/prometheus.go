@@ -233,15 +233,15 @@ func (t *PrometheusTask) create(ctx context.Context) error {
 		return errors.Wrap(err, "reconciling Prometheus rules PrometheusRule failed")
 	}
 
-	tsRule, err := t.factory.PrometheusK8sThanosSidecarPrometheusRule()
-	if err != nil {
-		return errors.Wrap(err, "initializing Thanos Sidecar rules failed")
-	}
+	// tsRule, err := t.factory.PrometheusK8sThanosSidecarPrometheusRule()
+	// if err != nil {
+	// 	return errors.Wrap(err, "initializing Thanos Sidecar rules failed")
+	// }
 
-	err = t.client.CreateOrUpdatePrometheusRule(ctx, tsRule)
-	if err != nil {
-		return errors.Wrap(err, "reconciling Thanos Sidecar rules PrometheusRule failed")
-	}
+	// err = t.client.CreateOrUpdatePrometheusRule(ctx, tsRule)
+	// if err != nil {
+	// 	return errors.Wrap(err, "reconciling Thanos Sidecar rules PrometheusRule failed")
+	// }
 
 	svc, err := t.factory.PrometheusK8sService()
 	if err != nil {
@@ -253,15 +253,15 @@ func (t *PrometheusTask) create(ctx context.Context) error {
 		return errors.Wrap(err, "reconciling Prometheus Service failed")
 	}
 
-	svc, err = t.factory.PrometheusK8sServiceThanosSidecar()
-	if err != nil {
-		return errors.Wrap(err, "initializing Thanos sidecar Service failed")
-	}
+	// svc, err = t.factory.PrometheusK8sServiceThanosSidecar()
+	// if err != nil {
+	// 	return errors.Wrap(err, "initializing Thanos sidecar Service failed")
+	// }
 
-	err = t.client.CreateOrUpdateService(ctx, svc)
-	if err != nil {
-		return errors.Wrap(err, "reconciling Thanos sidecar Service failed")
-	}
+	// err = t.client.CreateOrUpdateService(ctx, svc)
+	// if err != nil {
+	// 	return errors.Wrap(err, "reconciling Thanos sidecar Service failed")
+	// }
 
 	// There is no need to hash metrics client certs as Prometheus does that in-process.
 	metricsCerts, err := t.factory.MetricsClientCerts()
@@ -377,15 +377,15 @@ func (t *PrometheusTask) create(ctx context.Context) error {
 		return errors.Wrap(err, "reconciling Prometheus Prometheus ServiceMonitor failed")
 	}
 
-	smt, err := t.factory.PrometheusK8sThanosSidecarServiceMonitor()
-	if err != nil {
-		return errors.Wrap(err, "initializing Prometheus Thanos sidecar ServiceMonitor failed")
-	}
+	// smt, err := t.factory.PrometheusK8sThanosSidecarServiceMonitor()
+	// if err != nil {
+	// 	return errors.Wrap(err, "initializing Prometheus Thanos sidecar ServiceMonitor failed")
+	// }
 
-	err = t.client.CreateOrUpdateServiceMonitor(ctx, smt)
-	if err != nil {
-		return errors.Wrap(err, "reconciling Prometheus Thanos sidecar ServiceMonitor failed")
-	}
+	// err = t.client.CreateOrUpdateServiceMonitor(ctx, smt)
+	// if err != nil {
+	// 	return errors.Wrap(err, "reconciling Prometheus Thanos sidecar ServiceMonitor failed")
+	// }
 
 	return t.cleanup(ctx)
 }

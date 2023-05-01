@@ -107,52 +107,52 @@ spec:
       readOnly: true
     - mountPath: /etc/kube-rbac-proxy
       name: secret-kube-rbac-proxy
-  - args:
-    - --secure-listen-address=[$(POD_IP)]:10902
-    - --upstream=http://127.0.0.1:10902
-    - --tls-cert-file=/etc/tls/private/tls.crt
-    - --tls-private-key-file=/etc/tls/private/tls.key
-    - --client-ca-file=/etc/tls/client/client-ca.crt
-    - --config-file=/etc/kube-rbac-proxy/config.yaml
-    - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
-    - --allow-paths=/metrics
-    - --logtostderr=true
-    env:
-    - name: POD_IP
-      valueFrom:
-        fieldRef:
-          fieldPath: status.podIP
-    image: quay.io/brancz/kube-rbac-proxy:v0.13.0
-    name: kube-rbac-proxy-thanos
-    ports:
-    - containerPort: 10902
-      name: thanos-proxy
-    resources:
-      requests:
-        cpu: 1m
-        memory: 10Mi
-    terminationMessagePolicy: FallbackToLogsOnError
-    volumeMounts:
-    - mountPath: /etc/tls/private
-      name: secret-prometheus-k8s-thanos-sidecar-tls
-    - mountPath: /etc/kube-rbac-proxy
-      name: secret-kube-rbac-proxy
-  - args:
-    - sidecar
-    - --prometheus.url=http://localhost:9090/
-    - --tsdb.path=/prometheus
-    - --http-address=127.0.0.1:10902
-    - --grpc-server-tls-cert=/etc/tls/grpc/server.crt
-    - --grpc-server-tls-key=/etc/tls/grpc/server.key
-    - --grpc-server-tls-client-ca=/etc/tls/grpc/ca.crt
-    name: thanos-sidecar
-    resources:
-      requests:
-        cpu: 1m
-        memory: 25Mi
-    volumeMounts:
-    - mountPath: /etc/tls/grpc
-      name: secret-grpc-tls
+  # - args:
+  #   - --secure-listen-address=[$(POD_IP)]:10902
+  #   - --upstream=http://127.0.0.1:10902
+  #   - --tls-cert-file=/etc/tls/private/tls.crt
+  #   - --tls-private-key-file=/etc/tls/private/tls.key
+  #   - --client-ca-file=/etc/tls/client/client-ca.crt
+  #   - --config-file=/etc/kube-rbac-proxy/config.yaml
+  #   - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+  #   - --allow-paths=/metrics
+  #   - --logtostderr=true
+  #   env:
+  #   - name: POD_IP
+  #     valueFrom:
+  #       fieldRef:
+  #         fieldPath: status.podIP
+  #   image: quay.io/brancz/kube-rbac-proxy:v0.13.0
+  #   name: kube-rbac-proxy-thanos
+  #   ports:
+  #   - containerPort: 10902
+  #     name: thanos-proxy
+  #   resources:
+  #     requests:
+  #       cpu: 1m
+  #       memory: 10Mi
+  #   terminationMessagePolicy: FallbackToLogsOnError
+  #   volumeMounts:
+  #   - mountPath: /etc/tls/private
+  #     name: secret-prometheus-k8s-thanos-sidecar-tls
+  #   - mountPath: /etc/kube-rbac-proxy
+  #     name: secret-kube-rbac-proxy
+  # - args:
+  #   - sidecar
+  #   - --prometheus.url=http://localhost:9090/
+  #   - --tsdb.path=/prometheus
+  #   - --http-address=127.0.0.1:10902
+  #   - --grpc-server-tls-cert=/etc/tls/grpc/server.crt
+  #   - --grpc-server-tls-key=/etc/tls/grpc/server.key
+  #   - --grpc-server-tls-client-ca=/etc/tls/grpc/ca.crt
+  #   name: thanos-sidecar
+  #   resources:
+  #     requests:
+  #       cpu: 1m
+  #       memory: 25Mi
+  #   volumeMounts:
+  #   - mountPath: /etc/tls/grpc
+  #     name: secret-grpc-tls
   - name: prometheus
   enableFeatures: []
   externalLabels: {}
@@ -192,7 +192,7 @@ spec:
   - kube-etcd-client-certs
   - prometheus-k8s-tls
   - prometheus-k8s-proxy
-  - prometheus-k8s-thanos-sidecar-tls
+  # - prometheus-k8s-thanos-sidecar-tls
   - kube-rbac-proxy
   - metrics-client-certs
   securityContext:
@@ -204,11 +204,11 @@ spec:
     matchLabels:
       openshift.io/cluster-monitoring: "true"
   serviceMonitorSelector: {}
-  thanos:
-    image: quay.io/thanos/thanos:v0.28.1
-    resources:
-      requests:
-        cpu: 1m
-        memory: 100Mi
-    version: 0.28.1
+  # thanos:
+  #   image: quay.io/thanos/thanos:v0.28.1
+  #   resources:
+  #     requests:
+  #       cpu: 1m
+  #       memory: 100Mi
+  #   version: 0.28.1
   version: 2.39.1
