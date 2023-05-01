@@ -140,15 +140,15 @@ func (t *PrometheusUserWorkloadTask) create(ctx context.Context) error {
 		return errors.Wrap(err, "reconciling UserWorkload Prometheus Service failed")
 	}
 
-	svc, err = t.factory.PrometheusUserWorkloadServiceThanosSidecar()
-	if err != nil {
-		return errors.Wrap(err, "initializing UserWorkload Thanos sidecar Service failed")
-	}
+	// svc, err = t.factory.PrometheusUserWorkloadServiceThanosSidecar()
+	// if err != nil {
+	// 	return errors.Wrap(err, "initializing UserWorkload Thanos sidecar Service failed")
+	// }
 
-	err = t.client.CreateOrUpdateService(ctx, svc)
-	if err != nil {
-		return errors.Wrap(err, "reconciling UserWorkload Thanos sidecar Service failed")
-	}
+	// err = t.client.CreateOrUpdateService(ctx, svc)
+	// if err != nil {
+	// 	return errors.Wrap(err, "reconciling UserWorkload Thanos sidecar Service failed")
+	// }
 
 	grpcTLS, err := t.factory.GRPCSecret()
 	if err != nil {
@@ -259,15 +259,15 @@ func (t *PrometheusUserWorkloadTask) create(ctx context.Context) error {
 		return errors.Wrap(err, "reconciling UserWorkload Prometheus ServiceMonitor failed")
 	}
 
-	smt, err := t.factory.PrometheusUserWorkloadThanosSidecarServiceMonitor()
-	if err != nil {
-		return errors.Wrap(err, "initializing UserWorkload Thanos sidecar ServiceMonitor failed")
-	}
+	// smt, err := t.factory.PrometheusUserWorkloadThanosSidecarServiceMonitor()
+	// if err != nil {
+	// 	return errors.Wrap(err, "initializing UserWorkload Thanos sidecar ServiceMonitor failed")
+	// }
 
-	err = t.client.CreateOrUpdateServiceMonitor(ctx, smt)
-	if err != nil {
-		return errors.Wrap(err, "reconciling UserWorkload Thanos sidecar ServiceMonitor failed")
-	}
+	// err = t.client.CreateOrUpdateServiceMonitor(ctx, smt)
+	// if err != nil {
+	// 	return errors.Wrap(err, "reconciling UserWorkload Thanos sidecar ServiceMonitor failed")
+	// }
 
 	r, err := t.factory.PrometheusUserWorkloadFederateRoute()
 	if err != nil {
@@ -288,15 +288,15 @@ func (t *PrometheusUserWorkloadTask) create(ctx context.Context) error {
 }
 
 func (t *PrometheusUserWorkloadTask) destroy(ctx context.Context) error {
-	smt, err := t.factory.PrometheusUserWorkloadThanosSidecarServiceMonitor()
-	if err != nil {
-		return errors.Wrap(err, "initializing UserWorkload Thanos sidecar ServiceMonitor failed")
-	}
+	// smt, err := t.factory.PrometheusUserWorkloadThanosSidecarServiceMonitor()
+	// if err != nil {
+	// 	return errors.Wrap(err, "initializing UserWorkload Thanos sidecar ServiceMonitor failed")
+	// }
 
-	err = t.client.DeleteServiceMonitor(ctx, smt)
-	if err != nil {
-		return errors.Wrap(err, "deleting UserWorkload Thanos sidecar ServiceMonitor failed")
-	}
+	// err = t.client.DeleteServiceMonitor(ctx, smt)
+	// if err != nil {
+	// 	return errors.Wrap(err, "deleting UserWorkload Thanos sidecar ServiceMonitor failed")
+	// }
 
 	smp, err := t.factory.PrometheusUserWorkloadPrometheusServiceMonitor()
 	if err != nil {
@@ -366,15 +366,15 @@ func (t *PrometheusUserWorkloadTask) destroy(ctx context.Context) error {
 		return errors.Wrap(err, "deleting UserWorkload Prometheus Service failed")
 	}
 
-	svc, err = t.factory.PrometheusUserWorkloadServiceThanosSidecar()
-	if err != nil {
-		return errors.Wrap(err, "initializing UserWorkload Thanos sidecar Service failed")
-	}
+	// svc, err = t.factory.PrometheusUserWorkloadServiceThanosSidecar()
+	// if err != nil {
+	// 	return errors.Wrap(err, "initializing UserWorkload Thanos sidecar Service failed")
+	// }
 
-	err = t.client.DeleteService(ctx, svc)
-	if err != nil {
-		return errors.Wrap(err, "deleting UserWorkload Prometheus Service failed")
-	}
+	// err = t.client.DeleteService(ctx, svc)
+	// if err != nil {
+	// 	return errors.Wrap(err, "deleting UserWorkload Prometheus Service failed")
+	// }
 
 	rbc, err := t.factory.PrometheusUserWorkloadRoleBindingConfig()
 	if err != nil {

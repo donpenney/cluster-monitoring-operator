@@ -1710,7 +1710,7 @@ func (f *Factory) PrometheusK8s(grpcTLS *v1.Secret, trustedCABundleCM *v1.Config
 		p.Spec.Secrets = secrets
 	}
 
-	if f.config.Images.Thanos != "" {
+	if f.config.Images.Thanos != "" && p.Spec.Thanos != nil {
 		p.Spec.Thanos.Image = &f.config.Images.Thanos
 	}
 
@@ -1985,7 +1985,7 @@ func (f *Factory) PrometheusUserWorkload(grpcTLS *v1.Secret) (*monv1.Prometheus,
 		p.Spec.EnforcedLabelValueLengthLimit = f.config.UserWorkloadConfiguration.Prometheus.EnforcedLabelValueLengthLimit
 	}
 
-	if f.config.Images.Thanos != "" {
+	if f.config.Images.Thanos != "" && p.Spec.Thanos != nil {
 		p.Spec.Thanos.Image = &f.config.Images.Thanos
 	}
 
