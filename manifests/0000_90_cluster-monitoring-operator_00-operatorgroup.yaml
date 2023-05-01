@@ -13,3 +13,4 @@ spec:
   selector:
     matchLabels:
       openshift.io/cluster-monitoring: "true"
+  upgradeStrategy: Default
